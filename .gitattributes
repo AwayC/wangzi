@@ -1,0 +1,29 @@
+# 统一换行
+* text=auto eol=lf
+
+# ---- Git LFS：美术 / 音频等二进制资源（克隆前需安装 git-lfs：brew install git-lfs && git lfs install）
+# 模型
+*.glb filter=lfs diff=lfs merge=lfs -text
+*.fbx filter=lfs diff=lfs merge=lfs -text
+*.obj filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+# 贴图与源文件（只管 assets/，文档配图走普通 git 以便网页直接显示）
+assets/**/*.png filter=lfs diff=lfs merge=lfs -text
+assets/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+assets/**/*.exr filter=lfs diff=lfs merge=lfs -text
+assets/**/*.hdr filter=lfs diff=lfs merge=lfs -text
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.kra filter=lfs diff=lfs merge=lfs -text
+# 音频与视频
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.ogv filter=lfs diff=lfs merge=lfs -text
+# 字体
+*.ttf filter=lfs diff=lfs merge=lfs -text
+*.otf filter=lfs diff=lfs merge=lfs -text
+# MC 存档解析中间数据（如需入库）
+*.npy filter=lfs diff=lfs merge=lfs -text
+assets/**/*.bin filter=lfs diff=lfs merge=lfs -text
+assets/**/*.gltf filter=lfs diff=lfs merge=lfs -text

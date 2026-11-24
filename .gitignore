@@ -5,3 +5,5 @@
 .DS_Store
 # 导出产物
 /build/
+# Python 缓存
+__pycache__/

@@ -1,0 +1,1415 @@
+{
+ "cuihua": [
+  {
+   "pos": [
+    473.5,
+    0,
+    464.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    482.5,
+    2,
+    462.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    485.5,
+    2,
+    471.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    491.5,
+    2,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    499.5,
+    2,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    504.5,
+    2,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    512.5,
+    2,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    517.5,
+    2,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    525.5,
+    2,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    473.5,
+    4,
+    464.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    482.5,
+    6,
+    462.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    485.5,
+    6,
+    471.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    533.5,
+    6,
+    471.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    491.5,
+    6,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    499.5,
+    6,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    504.5,
+    6,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    512.5,
+    6,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    517.5,
+    6,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    525.5,
+    6,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    473.5,
+    8,
+    464.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    485.5,
+    10,
+    471.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    533.5,
+    10,
+    471.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    491.5,
+    10,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    499.5,
+    10,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    504.5,
+    10,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    512.5,
+    10,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    517.5,
+    10,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    525.5,
+    10,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    473.5,
+    12,
+    464.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    485.5,
+    14,
+    471.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    533.5,
+    14,
+    471.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    491.5,
+    14,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    499.5,
+    14,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    504.5,
+    14,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    512.5,
+    14,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    517.5,
+    14,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    525.5,
+    14,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    473.5,
+    16,
+    464.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    485.5,
+    18,
+    471.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    533.5,
+    18,
+    471.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    491.5,
+    18,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    499.5,
+    18,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    504.5,
+    18,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    512.5,
+    18,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    517.5,
+    18,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    525.5,
+    18,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    473.5,
+    20,
+    464.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    485.5,
+    22,
+    471.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    491.5,
+    22,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    499.5,
+    22,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    504.5,
+    22,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    512.5,
+    22,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    517.5,
+    22,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    525.5,
+    22,
+    472.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    473.5,
+    24,
+    464.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  }
+ ],
+ "library": [
+  {
+   "pos": [
+    592.5,
+    17,
+    440.5
+   ],
+   "facing": "east",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    646.5,
+    17,
+    440.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    602.5,
+    49,
+    433.5
+   ],
+   "facing": "east",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    636.5,
+    49,
+    433.5
+   ],
+   "facing": "west",
+   "type": "iron_door"
+  }
+ ],
+ "gaosan": [
+  {
+   "pos": [
+    753.5,
+    2,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    762.5,
+    2,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    771.5,
+    2,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    749.5,
+    2,
+    511.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    753.5,
+    2,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    760.5,
+    2,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    762.5,
+    2,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    769.5,
+    2,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    771.5,
+    2,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    778.5,
+    2,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    705.5,
+    2,
+    513.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    721.5,
+    2,
+    513.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    705.5,
+    2,
+    521.5
+   ],
+   "facing": "south",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    717.5,
+    2,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    721.5,
+    2,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    733.5,
+    2,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    753.5,
+    6,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    762.5,
+    6,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    771.5,
+    6,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    749.5,
+    6,
+    511.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    753.5,
+    6,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    760.5,
+    6,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    762.5,
+    6,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    769.5,
+    6,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    771.5,
+    6,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    778.5,
+    6,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    705.5,
+    6,
+    513.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    721.5,
+    6,
+    513.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    698.5,
+    6,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    700.5,
+    6,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    705.5,
+    6,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    717.5,
+    6,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    721.5,
+    6,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    733.5,
+    6,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    753.5,
+    10,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    762.5,
+    10,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    771.5,
+    10,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    749.5,
+    10,
+    511.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    753.5,
+    10,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    760.5,
+    10,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    762.5,
+    10,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    769.5,
+    10,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    771.5,
+    10,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    778.5,
+    10,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    705.5,
+    10,
+    513.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    721.5,
+    10,
+    513.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    698.5,
+    10,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    700.5,
+    10,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    705.5,
+    10,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    717.5,
+    10,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    721.5,
+    10,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    733.5,
+    10,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    753.5,
+    14,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    762.5,
+    14,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    771.5,
+    14,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    749.5,
+    14,
+    511.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    753.5,
+    14,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    760.5,
+    14,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    762.5,
+    14,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    769.5,
+    14,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    771.5,
+    14,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    778.5,
+    14,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    705.5,
+    14,
+    513.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    721.5,
+    14,
+    513.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    698.5,
+    14,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    700.5,
+    14,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    705.5,
+    14,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    717.5,
+    14,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    721.5,
+    14,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    733.5,
+    14,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    753.5,
+    18,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    762.5,
+    18,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    771.5,
+    18,
+    506.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    749.5,
+    18,
+    511.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    753.5,
+    18,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    760.5,
+    18,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    762.5,
+    18,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    769.5,
+    18,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    771.5,
+    18,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    778.5,
+    18,
+    512.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    705.5,
+    18,
+    513.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    721.5,
+    18,
+    513.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    698.5,
+    18,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    700.5,
+    18,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    705.5,
+    18,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    717.5,
+    18,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    721.5,
+    18,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    733.5,
+    18,
+    521.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  }
+ ],
+ "garden": [],
+ "north": [
+  {
+   "pos": [
+    705.5,
+    2,
+    270.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    706.5,
+    2,
+    270.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    667.5,
+    2,
+    308.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    668.5,
+    2,
+    308.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    712.5,
+    2,
+    316.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    713.5,
+    2,
+    316.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    722.5,
+    2,
+    316.5
+   ],
+   "facing": "north",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    696.5,
+    10,
+    314.5
+   ],
+   "facing": "south",
+   "type": "iron_door"
+  },
+  {
+   "pos": [
+    697.5,
+    10,
+    314.5
+   ],
+   "facing": "south",
+   "type": "iron_door"
+  }
+ ]
+}

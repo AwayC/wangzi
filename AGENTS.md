@@ -16,6 +16,7 @@ Godot 路径（macOS）: `/Applications/Godot.app/Contents/MacOS/Godot`（下文
 | `docs/production/01_开发任务拆分.md` | 全部开发任务（编号、依赖、规模、角色、里程碑），分工按编号认领 |
 | `docs/production/02_美术资源清单.md` | 美术 / 音频资源清单与交付规范 |
 | `docs/production/03_玩法原型拆分.md` | 小游戏与交互原型拆分、统一接口契约 |
+| `docs/production/04_地图场景编辑计划.md` | 地图决策：按 MC 原样重建的地块、总平面、故事设定、门锁、监控点、步行时间（MC 解析在 `tools/mc/`，重建在 `tools/blender/build_mc_campus.py`，拼场景 `tools/build_campus.gd`） |
 
 ## 目录
 
@@ -30,9 +31,12 @@ Godot 路径（macOS）: `/Applications/Godot.app/Contents/MacOS/Godot`（下文
 | `ui/theme/` | 主题 |
 | `data/` | 配置数据；`asset_manifest.tres` 由工具生成，不要手改 |
 | `scenes/main.tscn` | 主场景（目前是空壳） |
+| `scenes/dev/` | 开发 / 评审用场景（如 `kit_classroom.tscn` 教室套件预览，由工具生成） |
+| `scenes/levels/` | 关卡场景；`campus.tscn` 是校园场景，由 `tools/build_campus.gd` 拼装，不要手改 |
+| `assets/` | 美术资源（按地址组织，规范见 `docs/production/02_美术资源清单.md`）；当前是 Blender 脚本生成的教室样例套件，和按 MC 布局重建的校园地块 `env/campus/`（.gltf + 共用贴图 `textures/`） |
 | `tools/` | 构建与校验工具（见下） |
 | `tests/` | 测试（`tests/**/test_*.gd`）与测试夹具 |
-| 以后新增 | `game/` 业务代码、`assets/` 美术资源、`prototypes/` 玩法原型（规范见 production 文档） |
+| 以后新增 | `game/` 业务代码、`prototypes/` 玩法原型（规范见 production 文档） |
 
 ## 常用命令
 
@@ -47,7 +51,27 @@ $G --headless --path . --script res://tools/build_manifest.gd
 $G --headless --path . --script res://tools/build_ui.gd
 # 校验某个场景能否加载
 $G --headless --path . --script res://tools/check_scene.gd -- res://scenes/main.tscn
+# Blender 生成教室样例套件和室内家具（电脑桌、办公桌、上下铺、食堂餐桌）（全部重建；后面跟资源名只重建这几件），之后要 --import 和重建清单
+/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup --python tools/blender/build_classroom_kit.py -- [desk_student ...]
+# 重建预览教室，并截图（截图需要图形环境，不加 --headless）
+$G --headless --path . --script res://tools/build_kit_preview.gd
+$G --path . --script res://tools/screenshot_scene.gd -- res://scenes/dev/kit_classroom.tscn /绝对路径/out.png
+# 校园地图（流程见 docs/production/04_地图场景编辑计划.md 第五节）：MC 扫描 → 贴图 → Blender 按 MC 布局重建地块和新部件 → 拼场景 → 截图
+python3 -I tools/mc/mc_scan.py ~/Downloads/world <扫描输出目录>
+python3 -I tools/blender/make_textures.py
+/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup --python tools/blender/build_mc_campus.py -- <扫描输出目录> [地块 id ... | extras]
+$G --headless --path . --import && $G --headless --path . --script res://tools/build_campus.gd
+$G --path . --script res://tools/screenshot_scene.gd -- res://scenes/levels/campus.tscn /绝对路径/out.png 1600 1000 OverviewCamera
+# 单个模型在标准灯光下截图
+$G --path . --script res://tools/preview_model.gd -- res://assets/env/campus/cuihua.gltf /绝对路径/out.png 515,30,540 500,12,475
 ```
+
+Blender 建模约定（`tools/blender/kit_lib.py`）：
+- 模型正面朝 Blender +Y，导出后就是 Godot 的 -Z；单位米。
+- 每件资源烘一张底色图、一张 AO 图，合成一个材质（AO 走 glTF occlusion 通道）。
+- 名字带 `-convcolonly` 的对象，导入 Godot 后会变成凸包碰撞体。
+- 会动的部件（门扇、柜门、扇叶）做成单独的子对象，枢轴放在合页 / 转轴处。
+- glb 里的贴图由 Godot 解出到同目录，命名为 `<资源>_albedo.png` / `<资源>_ao.png`，不要手改。
 
 ## 框架用法速查
 
@@ -60,9 +84,12 @@ $G --headless --path . --script res://tools/check_scene.gd -- res://scenes/main.
 
 ## 约定与踩过的坑
 
+- **二进制资源走 Git LFS**（规则在 `.gitattributes`：`*.glb`、`assets/` 下的贴图、`.gltf` / `.bin`、音频、字体等）。克隆前先装 `git lfs`（macOS：`brew install git-lfs && git lfs install`），否则拿到的只是指针文件；新增二进制类型时先补 `.gitattributes` 再提交。文档配图不走 LFS。
+
 - **`class_name` 可以用**，但新增或改名后要先跑 `$G --headless --path . --import` 刷新类缓存（`tools/test.sh` 已自动做）。autoload 脚本本身不要写 `class_name`。
 - **工具脚本（`extends SceneTree`）在 `_init` 阶段不能引用 autoload**（`App`、`UI` 等，也包括会间接引用它们的类型如 `UIPanel`），否则编译失败；需要时把逻辑放进 `call_deferred`，或用 `root.get_node("App")`。工具脚本里不要声明名为 `root` 的成员。
 - **资源加载默认在主线程逐帧进行**。含碰撞形状的场景用后台线程加载会和物理服务器抢 RID（报 `Attempting to initialize the wrong RID`）；`ThreadedAssetProvider` 只用于纹理、音频等不建物理对象的资源。
+- 大场景模型导出成 `.gltf` + `.bin` + 外部贴图（`export_keep_originals`），不要用内嵌 JPEG 的 glb：headless 导入时内嵌 JPEG 解不出来，材质会全白。
 - `StringName` 的 `<` 不是字典序，排序要转成 `String`。
 - 生成场景的脚本必须给每个子节点设 `owner`，否则不会被保存。
 - 缓存面板（`cache: true`）跨测试保留，测试里按增量断言。
