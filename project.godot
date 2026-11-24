@@ -23,10 +23,6 @@ Assets="*res://core/asset/asset_manager.gd"
 Pool="*res://core/asset/pool_manager.gd"
 UI="*res://core/ui/ui_manager.gd"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/godot_ai/plugin.cfg")
-
 [display]
 
 window/size/viewport_width=1920
@@ -35,6 +31,10 @@ window/size/window_width_override=1600
 window/size/window_height_override=900
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_ai/plugin.cfg")
 
 [gui]
 
