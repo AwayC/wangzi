@@ -1,0 +1,53 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/panels/common/loading_panel.gd" id="1_u2rhn"]
+[ext_resource type="Script" path="res://core/ui/ui_transition.gd" id="2_x8j5d"]
+
+[node name="LoadingPanel" type="Control" unique_id=64117315]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_u2rhn")
+
+[node name="UITransition" type="Node" parent="." unique_id=414442099]
+script = ExtResource("2_x8j5d")
+kind = 1
+
+[node name="Background" type="ColorRect" parent="." unique_id=957779048]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.06, 0.07, 0.1, 1)
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=11737205]
+custom_minimum_size = Vector2(960, 0)
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="VBox" unique_id=2062809135]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "加载中……"
+horizontal_alignment = 1
+
+[node name="Bar" type="ProgressBar" parent="VBox" unique_id=625173327]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(960, 18)
+layout_mode = 2
+show_percentage = false
+
+[node name="Tip" type="Label" parent="VBox" unique_id=1453889820]
+unique_name_in_owner = true
+modulate = Color(0.75, 0.78, 0.85, 1)
+layout_mode = 2
+text = "小贴士"
+horizontal_alignment = 1

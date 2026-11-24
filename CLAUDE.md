@@ -1,95 +1,75 @@
-# wangzi (Godot 4.7.2 项目)
+# wangzi（《王子历险记》，Godot 4.7.2）
 
-Godot 路径: `/Applications/Godot.app/Contents/MacOS/Godot`(下文简写 `$G`)。
-已装 godot-ai 插件(`addons/godot_ai/`,v4.4.2),MCP 名 `godot-ai`,配置在用户级。
+Godot 路径: `/Applications/Godot.app/Contents/MacOS/Godot`（下文简写 `$G`）。
+已装 godot-ai 插件（`addons/godot_ai/`），MCP 名 `godot-ai`，配置在用户级；需要编辑器开着才能用。
 
-## 分工原则(已实测)
+## 项目现状
+
+**只有基础框架，没有玩法代码。** 早期白盒原型已移除（备份在 `~/.Trash/wangzi_原型备份_20261124/`）。
+
+| 文档 | 内容 |
+| :--- | :--- |
+| `docs/GDD_策划案.md` + `docs/systems/` | 策划案（v3.1，PvE：玩家扮演学生，教导阵营全部是 AI） |
+| `docs/production/01_开发任务拆分.md` | 全部开发任务（编号、依赖、规模、角色、里程碑），分工按编号认领 |
+| `docs/production/02_美术资源清单.md` | 美术 / 音频资源清单与交付规范 |
+| `docs/production/03_玩法原型拆分.md` | 小游戏与交互原型拆分、统一接口契约 |
+
+## 目录
+
+| 路径 | 作用 |
+| :--- | :--- |
+| `core/app/` | `App` 服务启动（依赖排序）、`Log`、`DebugArgs`、`ServiceGraph` |
+| `core/event/` | `Events` 全局事件总线（强类型信号） |
+| `core/asset/` | `Assets` 资源寻址加载、`Pool` 对象池、清单、加载组、Provider |
+| `core/ui/` | `UI` 管理器、`UIPanel` / `UIView`、层级、显示动画、按压回弹 |
+| `core/testing/` | 测试基类 `TestCase` |
+| `ui/panels/common/` | 通用面板：Toast / Confirm / Loading |
+| `ui/theme/` | 主题 |
+| `data/` | 配置数据；`asset_manifest.tres` 由工具生成，不要手改 |
+| `scenes/main.tscn` | 主场景（目前是空壳） |
+| `tools/` | 构建与校验工具（见下） |
+| `tests/` | 测试（`tests/**/test_*.gd`）与测试夹具 |
+| 以后新增 | `game/` 业务代码、`assets/` 美术资源、`prototypes/` 玩法原型（规范见 production 文档） |
+
+## 常用命令
+
+```bash
+# 一键测试：刷新类缓存 → 全部测试 → 资源校验（提交前必须通过）
+tools/test.sh
+# 只跑名字包含关键字的测试
+tools/test.sh ui
+# 新增 / 移动 / 删除资源后重新生成资源清单
+$G --headless --path . --script res://tools/build_manifest.gd
+# 生成主题与通用面板（已存在的文件不覆盖，加 -- --force 覆盖）
+$G --headless --path . --script res://tools/build_ui.gd
+# 校验某个场景能否加载
+$G --headless --path . --script res://tools/check_scene.gd -- res://scenes/main.tscn
+```
+
+## 框架用法速查
+
+- **服务**：一个 autoload = 一个服务，脚本里写 `const SERVICE_DEPS: Array[StringName] = [...]` 和 `func setup()`（可 await）。`App` 自动按依赖排序初始化；用到服务前 `await App.wait_ready()`。新服务要加到 `project.godot` 的 `[autoload]`，且排在 `App` 之后。存在名为 `Flow` 且有 `boot()` 的服务时，游戏启动后会调用它（业务流程入口，尚未实现，见任务 FW-01/FW-02）。
+- **资源**：业务代码只用地址：`Assets.load("props/desk")`、`Assets.instantiate(...)`、`await Assets.load_group("data/load_groups/xxx")`。地址 = 资源根目录前缀 + 相对路径去扩展名（规则在 `ManifestBuilder.ROOTS`）。`validate_assets` 会拦截 `game/`、`ui/` 里直接 `load("res://assets/...")` 的代码。
+- **对象池**：`Pool.prewarm / spawn / recycle / clear_category`；池化节点可实现 `_on_spawn()` / `_on_recycle()`，或挂 `AutoRecycle`。
+- **UI**：面板脚本 `extends UIPanel` 并声明 `const PANEL := {"address": "ui/<模块>/<文件名>", "layer": UILayer.POPUP, "cache": true}`；场景放 `ui/panels/<模块>/<文件名>.tscn`；节点用唯一名称 `%Name` + `@onready` 绑定（校验工具会检查）。打开 `UI.open(XxxPanel, 参数)`，关闭 `close()`；快捷 `UI.toast()` / `UI.confirm()`。
+- **事件**：跨系统事件在 `core/event/event_bus.gd` 声明成信号并写清参数含义。
+- **调试参数**：`-- --debug`（DEBUG 日志）、`-- --quiet`；业务参数用 `DebugArgs.get_*` 读取。
+
+## 约定与踩过的坑
+
+- **`class_name` 可以用**，但新增或改名后要先跑 `$G --headless --path . --import` 刷新类缓存（`tools/test.sh` 已自动做）。autoload 脚本本身不要写 `class_name`。
+- **工具脚本（`extends SceneTree`）在 `_init` 阶段不能引用 autoload**（`App`、`UI` 等，也包括会间接引用它们的类型如 `UIPanel`），否则编译失败；需要时把逻辑放进 `call_deferred`，或用 `root.get_node("App")`。工具脚本里不要声明名为 `root` 的成员。
+- **资源加载默认在主线程逐帧进行**。含碰撞形状的场景用后台线程加载会和物理服务器抢 RID（报 `Attempting to initialize the wrong RID`）；`ThreadedAssetProvider` 只用于纹理、音频等不建物理对象的资源。
+- `StringName` 的 `<` 不是字典序，排序要转成 `String`。
+- 生成场景的脚本必须给每个子节点设 `owner`，否则不会被保存。
+- 缓存面板（`cache: true`）跨测试保留，测试里按增量断言。
+- **删除 / 移动文件要逐个确认**：项目大部分文件还没提交 git，误删无法恢复。批量移动不要用 `git mv -k`（对未跟踪文件会静默跳过）。
+
+## 分工原则（Godot CLI 与 MCP）
 
 | 任务 | 用什么 |
 |---|---|
-| 批量/脚本化生成场景、校验脚本、导出 | **Godot CLI(headless)** |
-| 在已打开的编辑器里看效果、截图、微调节点/属性 | **godot-ai MCP**(需编辑器开着) |
+| 批量 / 脚本化生成场景、校验、测试、导出 | Godot CLI（headless） |
+| 在开着的编辑器里看效果、截图、微调节点 | godot-ai MCP |
 
-两者做同一个 3D 小场景(地面+方块+灯+相机),结果等价;CLI 约 0.25 秒一次,MCP 约 10 次调用、2.5 秒。
-
-## CLI 用法
-
-生成场景(脚本继承 `SceneTree`,`PackedScene.pack()` + `ResourceSaver.save()`,模板见 `tools/make_scene.gd`):
-```bash
-$G --headless --path . --script res://tools/make_scene.gd
-```
-校验场景能否加载(见 `tools/check_scene.gd`,成功输出 `OK ...`):
-```bash
-$G --headless --path . --script res://tools/check_scene.gd -- res://scenes/xxx.tscn
-```
-校验 GDScript 语法(语法错误会输出 `Parse Error`):
-```bash
-$G --headless --path . --check-only --script res://path/to/file.gd
-```
-导出: `$G --headless --path . --export-release <预设名> <输出路径>`(需先在项目里配置导出预设;本项目尚未实测)。
-
-注意:
-- 脚本里必须给每个子节点设 `owner = root`,否则不会被保存进 `.tscn`。
-- 脚本结尾 `root.free()` 再 `quit()`,否则 headless 会打印一堆泄漏警告。
-- headless 不渲染,看不到画面;要看效果用 MCP 截图。
-
-## MCP 用法要点
-
-- 先确认编辑器已打开本项目;`session_manage(op="list")` 能看到会话。
-- 建场景: `scene_manage(op="create", params={path, root_type, root_name})`。
-- 加节点: `node_create(type, name, parent_path)`;设属性: `node_set_property`,向量用 `{"x":..,"y":..,"z":..}`。
-- **给节点设 Mesh 等资源不能用 `node_set_property` 传字典**(会报 `WRONG_TYPE`),要用
-  `resource_manage(op="create", params={type:"BoxMesh", path:"/Root/Node", property:"mesh", properties:{...}})`。
-- 改完调 `scene_save`;看效果用 `editor_screenshot`。
-- 节点路径相对场景根,如 `/McpDemo/Cube`,不是运行时 `/root/...`。
-
-## 示例文件
-
-- `scenes/cli_demo.tscn`: CLI 生成
-- `scenes/mcp_demo.tscn`: MCP 生成
-
-## 游戏原型（白盒）
-
-策划案: `docs/GDD_策划案.md`。阵营胜负与排名规则见 GDD 6.0:
-学生玩家娱乐值总和 ≥ `ENT_GOAL_PER_STUDENT × 学生人数` → 学生阵营胜,否则教导阵营胜;学生之间按高考分排名。
-
-### 目录
-| 路径 | 作用 |
-|---|---|
-| `scripts/game/game_config.gd` | **所有可调数值**(阶段时长、收益速率、门槛、角色被动、称号) |
-| `scripts/game/score_rules.gd` | 算分/胜负/排名纯函数 |
-| `scripts/game/student_stats.gd` | 单个学生玩家的局内数据 |
-| `scripts/game/main.gd` | 主控:时间轴、门禁、生成角色、放榜(`scenes/main.tscn` 的根) |
-| `scripts/actors/` | 玩家、AI 学生、老师 AI、占位模型 |
-| `scripts/world/` | 关卡脚本、区域 Zone、可交互物(课桌/电脑) |
-| `scripts/ui/hud.gd` | HUD 与放榜界面(全部代码搭建) |
-| `tools/build_school.gd` | 生成 `scenes/school.tscn`(校园白盒)和 `scenes/main.tscn` |
-| `tools/test_score_rules.gd` | 计分规则单测 |
-
-### 常用命令
-```bash
-# 改了 build_school.gd 后重新生成校园场景
-$G --headless --path . --script res://tools/build_school.gd
-# 计分单测(应输出 RESULT failures=0)
-$G --headless --path . --script res://tools/test_score_rules.gd
-# 40 倍速跑完整两天并打印阶段/放榜,检查有无 ERROR
-$G --headless --path . --fixed-fps 60 --quit-after 4000 -- --time-scale=40 --log --quit-on-finish
-# 正常速度,玩家坐在机房电脑前,每 5 秒打印 AI/老师状态
-$G --headless --path . --fixed-fps 60 --quit-after 7200 -- --debug --debug-player=lab
-```
-
-### 约定
-- **不用 `class_name`**,跨脚本一律 `const X = preload(...)`。原因:CLI headless 运行时编辑器未必已刷新全局类缓存,`class_name` 会解析失败。
-- `SceneTree` 脚本(tools/)里不能声明名为 `root` 的成员,会和 `SceneTree.root` 冲突。
-- 碰撞层: 1 世界(墙,参与导航烘焙) / 2 玩家 / 3 AI 学生(值 4) / 4 老师(值 8) / 5 交互射线(值 16)。
-- 家具(桌椅床)只是外观、不挡人,导航只烘焙第 1 层的 `solid()`;交互靠第 5 层碰撞。
-- 宿舍铁门 `DormGate` 故意不放在 `Nav` 下,不参与烘焙,由 `school.gd` 开关碰撞。
-- **寻路参数是一起调过的,改一个要连带检查其它**(都踩过坑):
-  - 导航烘焙半径 0.5,AI/老师碰撞半径 0.22。碰撞半径必须明显小于烘焙半径,否则 0.25m 体素误差会让路径贴着柱角走、身体被卡住。
-  - 室内门宽 `DOOR_W = 1.6`。门宽 − 2×烘焙半径 太小(≤0.4)时,体素取整会把门“封死”,寻路改走楼外,角色卡在墙/铁门前。
-  - `NavigationAgent3D` 统一用 `scripts/actors/nav_util.gd::setup_agent()`:`path_height_offset=0.5` 抵消导航面高度差(否则矮障碍物顶上的悬空路点永远到不了,原地抖动);`path_desired_distance=0.4`(太大会提前拐弯蹭门框)。
-  - 卡住判定用 `NavUtil.remaining_path_length()`(剩余路径长度),不要用 `distance_to_target()`(直线距离,绕路出门时会变大导致误判)。
-- 调试寻路: `-- --debug --start-phase=1` 直接从晚自习开始,打印入座数、卡住累计和每次卡住的位置。
-- 学生玩家和 AI 学生必须共用 `PlaceholderModels.make_student()`(GDD 全员同模);换美术时只改 `placeholder_models.gd`。
-- 输入映射在 `main.gd::_setup_input()` 里用代码注册,没写进 project.godot。
-- 调试键: N 跳过当前阶段;放榜后 R 重开。
+MCP 要点：给节点设 Mesh 等资源不能用 `node_set_property` 传字典（会报 `WRONG_TYPE`），要用 `resource_manage(op="create", ...)`；改完 `scene_save`；节点路径相对场景根。

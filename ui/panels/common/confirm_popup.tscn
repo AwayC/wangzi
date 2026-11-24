@@ -1,0 +1,54 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/panels/common/confirm_popup.gd" id="1_xnyok"]
+[ext_resource type="Script" path="res://core/ui/ui_transition.gd" id="2_tivhd"]
+
+[node name="ConfirmPopup" type="Control" unique_id=1465091637]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_xnyok")
+
+[node name="UITransition" type="Node" parent="." unique_id=1646402864]
+script = ExtResource("2_tivhd")
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1557208450]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="Center" unique_id=221003544]
+custom_minimum_size = Vector2(620, 0)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel" unique_id=1613463913]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="Text" type="Label" parent="Center/Panel/VBox" unique_id=550444489]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(560, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "确定吗？"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Buttons" type="HBoxContainer" parent="Center/Panel/VBox" unique_id=597438387]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="CancelBtn" type="Button" parent="Center/Panel/VBox/Buttons" unique_id=1021806049]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 56)
+layout_mode = 2
+text = "取消"
+
+[node name="ConfirmBtn" type="Button" parent="Center/Panel/VBox/Buttons" unique_id=1850797685]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 56)
+layout_mode = 2
+text = "确定"

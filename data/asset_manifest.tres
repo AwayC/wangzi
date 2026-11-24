@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AssetManifest" format=3]
+
+[ext_resource type="Script" path="res://core/asset/asset_manifest.gd" id="1_w38qt"]
+
+[resource]
+script = ExtResource("1_w38qt")
+paths = {
+"scenes/main": "res://scenes/main.tscn",
+"ui/common/confirm_popup": "res://ui/panels/common/confirm_popup.tscn",
+"ui/common/loading_panel": "res://ui/panels/common/loading_panel.tscn",
+"ui/common/toast_panel": "res://ui/panels/common/toast_panel.tscn"
+}
+deps = {
+"ui/common/confirm_popup": PackedStringArray("res://ui/panels/common/confirm_popup.gd", "res://core/ui/ui_transition.gd"),
+"ui/common/loading_panel": PackedStringArray("res://ui/panels/common/loading_panel.gd", "res://core/ui/ui_transition.gd"),
+"ui/common/toast_panel": PackedStringArray("res://ui/panels/common/toast_panel.gd")
+}

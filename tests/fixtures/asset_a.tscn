@@ -1,0 +1,3 @@
+[gd_scene format=3]
+
+[node name="AssetA" type="Node3D"]
