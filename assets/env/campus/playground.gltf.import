@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bqla64o33lvbq"
-path="res://.godot/imported/garden.gltf-ab9002064e3b9c8b3f58f24baac8d899.scn"
+uid="uid://f8f04c3labbh"
+path="res://.godot/imported/playground.gltf-65240ff59af91e1f76e2fef89443e1f2.scn"
 
 [deps]
 
-source_file="res://assets/env/campus/garden.gltf"
-dest_files=["res://.godot/imported/garden.gltf-ab9002064e3b9c8b3f58f24baac8d899.scn"]
+source_file="res://assets/env/campus/playground.gltf"
+dest_files=["res://.godot/imported/playground.gltf-65240ff59af91e1f76e2fef89443e1f2.scn"]
 
 [params]
 

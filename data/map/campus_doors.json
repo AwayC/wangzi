@@ -1,1415 +1,650 @@
 {
+ "gaosan": [
+  {
+   "pos": [
+    110.6,
+    0.25,
+    63.8
+   ],
+   "type": "chain_shutter",
+   "facing": "north",
+   "lock": "curfew_23"
+  },
+  {
+   "pos": [
+    135.6,
+    0.25,
+    59.4
+   ],
+   "type": "chain_shutter",
+   "facing": "north",
+   "lock": "curfew_23"
+  },
+  {
+   "pos": [
+    158.5,
+    0.25,
+    58.06
+   ],
+   "type": "chain_shutter",
+   "facing": "west",
+   "lock": "curfew_23"
+  },
+  {
+   "pos": [
+    108.5,
+    0.25,
+    62.5
+   ],
+   "type": "building_entrance",
+   "facing": "west",
+   "lock": ""
+  },
+  {
+   "pos": [
+    113.95,
+    0.25,
+    61.2
+   ],
+   "type": "office",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    119.95,
+    0.25,
+    61.2
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    127.45,
+    0.25,
+    61.2
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    138.95,
+    0.25,
+    56.8
+   ],
+   "type": "office",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    144.95,
+    0.25,
+    56.8
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    152.45,
+    0.25,
+    56.8
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    155.15,
+    0.25,
+    56.8
+   ],
+   "type": "toilet",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    113.95,
+    3.65,
+    61.2
+   ],
+   "type": "office",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    119.95,
+    3.65,
+    61.2
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    127.45,
+    3.65,
+    61.2
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    138.95,
+    3.65,
+    56.8
+   ],
+   "type": "office",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    144.95,
+    3.65,
+    56.8
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    152.45,
+    3.65,
+    56.8
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    155.15,
+    3.65,
+    56.8
+   ],
+   "type": "toilet",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    113.95,
+    7.05,
+    61.2
+   ],
+   "type": "office",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    119.95,
+    7.05,
+    61.2
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    127.45,
+    7.05,
+    61.2
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    138.95,
+    7.05,
+    56.8
+   ],
+   "type": "office",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    144.95,
+    7.05,
+    56.8
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    152.45,
+    7.05,
+    56.8
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    155.15,
+    7.05,
+    56.8
+   ],
+   "type": "toilet",
+   "facing": "south",
+   "lock": ""
+  }
+ ],
  "cuihua": [
   {
    "pos": [
-    473.5,
-    0,
-    464.5
+    15.8,
+    0.25,
+    22.84
    ],
+   "type": "chain_shutter",
+   "facing": "east",
+   "lock": "curfew_23"
+  },
+  {
+   "pos": [
+    41.0,
+    0.25,
+    32.8
+   ],
+   "type": "chain_shutter",
    "facing": "west",
-   "type": "iron_door"
+   "lock": "curfew_23"
   },
   {
    "pos": [
-    482.5,
-    2,
-    462.5
+    18.6,
+    0.25,
+    20.8
    ],
-   "facing": "north",
-   "type": "iron_door"
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
   },
   {
    "pos": [
-    485.5,
-    2,
-    471.5
+    18.6,
+    3.65,
+    20.8
    ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    15.8,
+    0.25,
+    31.15
+   ],
+   "type": "astronomy",
+   "facing": "east",
+   "lock": "key_astronomy"
+  },
+  {
+   "pos": [
+    22.65,
+    0.25,
+    32.6
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    30.15,
+    0.25,
+    32.6
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    32.7,
+    0.25,
+    32.6
+   ],
+   "type": "office",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    39.8,
+    0.25,
+    35.22
+   ],
+   "type": "building_entrance",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    15.8,
+    3.65,
+    31.15
+   ],
+   "type": "round_hall",
+   "facing": "east",
+   "lock": ""
+  },
+  {
+   "pos": [
+    22.65,
+    3.65,
+    32.6
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    30.15,
+    3.65,
+    32.6
+   ],
+   "type": "classroom",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    32.7,
+    3.65,
+    32.6
+   ],
+   "type": "office",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    15.8,
+    7.05,
+    28.1
+   ],
+   "type": "small_lab",
+   "facing": "east",
+   "lock": "key_small_lab"
+  },
+  {
+   "pos": [
+    22.65,
+    7.05,
+    32.6
+   ],
+   "type": "lab",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    30.15,
+    7.05,
+    32.6
+   ],
+   "type": "lab",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    31.4,
+    7.05,
+    31.65
+   ],
+   "type": "key_office_inner",
    "facing": "west",
-   "type": "iron_door"
-  },
+   "lock": ""
+  }
+ ],
+ "north": [
   {
    "pos": [
-    491.5,
-    2,
-    472.5
+    119.5,
+    0.25,
+    17.5
    ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    499.5,
-    2,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    504.5,
-    2,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    512.5,
-    2,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    517.5,
-    2,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    525.5,
-    2,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    473.5,
-    4,
-    464.5
-   ],
+   "type": "chain_shutter",
    "facing": "west",
-   "type": "iron_door"
+   "lock": "curfew_22"
   },
   {
    "pos": [
-    482.5,
-    6,
-    462.5
+    117.85,
+    0.25,
+    8.5
    ],
+   "type": "monitor_room",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    114.4,
+    0.25,
+    10.7
+   ],
+   "type": "duty_room",
    "facing": "north",
-   "type": "iron_door"
+   "lock": ""
   },
   {
    "pos": [
-    485.5,
-    6,
-    471.5
+    113.7,
+    3.65,
+    8.5
    ],
+   "type": "dorm",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    113.7,
+    3.65,
+    10.7
+   ],
+   "type": "dorm",
+   "facing": "north",
+   "lock": ""
+  },
+  {
+   "pos": [
+    126.6,
+    3.65,
+    12.1
+   ],
+   "type": "dorm",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    126.6,
+    3.65,
+    14.3
+   ],
+   "type": "dorm",
+   "facing": "north",
+   "lock": ""
+  },
+  {
+   "pos": [
+    130.8,
+    3.65,
+    12.1
+   ],
+   "type": "dorm",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    130.8,
+    3.65,
+    14.3
+   ],
+   "type": "dorm",
+   "facing": "north",
+   "lock": ""
+  },
+  {
+   "pos": [
+    122.6,
+    7.05,
+    15.2
+   ],
+   "type": "study_room",
+   "facing": "north",
+   "lock": ""
+  },
+  {
+   "pos": [
+    113.7,
+    7.05,
+    8.5
+   ],
+   "type": "dorm",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    113.7,
+    7.05,
+    10.7
+   ],
+   "type": "dorm",
+   "facing": "north",
+   "lock": ""
+  },
+  {
+   "pos": [
+    126.6,
+    7.05,
+    12.1
+   ],
+   "type": "dorm",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    126.6,
+    7.05,
+    14.3
+   ],
+   "type": "dorm",
+   "facing": "north",
+   "lock": ""
+  },
+  {
+   "pos": [
+    130.8,
+    7.05,
+    12.1
+   ],
+   "type": "dorm",
+   "facing": "south",
+   "lock": ""
+  },
+  {
+   "pos": [
+    130.8,
+    7.05,
+    14.3
+   ],
+   "type": "dorm",
+   "facing": "north",
+   "lock": ""
+  },
+  {
+   "pos": [
+    143.0,
+    0.25,
+    25.1
+   ],
+   "type": "canteen_entrance",
    "facing": "west",
-   "type": "iron_door"
+   "lock": ""
   },
   {
    "pos": [
-    533.5,
-    6,
-    471.5
+    157.9,
+    0.25,
+    39.2
    ],
-   "facing": "north",
-   "type": "iron_door"
+   "type": "canteen_entrance",
+   "facing": "south",
+   "lock": ""
   },
   {
    "pos": [
-    491.5,
-    6,
-    472.5
+    154.0,
+    0.22,
+    4.55
    ],
-   "facing": "north",
-   "type": "iron_door"
+   "type": "shop_inner",
+   "facing": "east",
+   "lock": ""
   },
   {
    "pos": [
-    499.5,
-    6,
-    472.5
+    151.0,
+    0.22,
+    7.7
    ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    504.5,
-    6,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    512.5,
-    6,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    517.5,
-    6,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    525.5,
-    6,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    473.5,
-    8,
-    464.5
-   ],
-   "facing": "west",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    485.5,
-    10,
-    471.5
-   ],
-   "facing": "west",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    533.5,
-    10,
-    471.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    491.5,
-    10,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    499.5,
-    10,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    504.5,
-    10,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    512.5,
-    10,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    517.5,
-    10,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    525.5,
-    10,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    473.5,
-    12,
-    464.5
-   ],
-   "facing": "west",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    485.5,
-    14,
-    471.5
-   ],
-   "facing": "west",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    533.5,
-    14,
-    471.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    491.5,
-    14,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    499.5,
-    14,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    504.5,
-    14,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    512.5,
-    14,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    517.5,
-    14,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    525.5,
-    14,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    473.5,
-    16,
-    464.5
-   ],
-   "facing": "west",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    485.5,
-    18,
-    471.5
-   ],
-   "facing": "west",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    533.5,
-    18,
-    471.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    491.5,
-    18,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    499.5,
-    18,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    504.5,
-    18,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    512.5,
-    18,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    517.5,
-    18,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    525.5,
-    18,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    473.5,
-    20,
-    464.5
-   ],
-   "facing": "west",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    485.5,
-    22,
-    471.5
-   ],
-   "facing": "west",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    491.5,
-    22,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    499.5,
-    22,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    504.5,
-    22,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    512.5,
-    22,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    517.5,
-    22,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    525.5,
-    22,
-    472.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    473.5,
-    24,
-    464.5
-   ],
-   "facing": "west",
-   "type": "iron_door"
+   "type": "shop",
+   "facing": "south",
+   "lock": ""
   }
  ],
  "library": [
   {
    "pos": [
-    592.5,
-    17,
-    440.5
+    64.26,
+    0.45,
+    89.75
    ],
+   "type": "guard_room",
    "facing": "east",
-   "type": "iron_door"
+   "lock": ""
   },
   {
    "pos": [
-    646.5,
-    17,
-    440.5
+    89.74,
+    0.45,
+    89.75
    ],
+   "type": "guard_room",
    "facing": "west",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    602.5,
-    49,
-    433.5
-   ],
-   "facing": "east",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    636.5,
-    49,
-    433.5
-   ],
-   "facing": "west",
-   "type": "iron_door"
-  }
- ],
- "gaosan": [
-  {
-   "pos": [
-    753.5,
-    2,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    762.5,
-    2,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    771.5,
-    2,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    749.5,
-    2,
-    511.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    753.5,
-    2,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    760.5,
-    2,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    762.5,
-    2,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    769.5,
-    2,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    771.5,
-    2,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    778.5,
-    2,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    705.5,
-    2,
-    513.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    721.5,
-    2,
-    513.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    705.5,
-    2,
-    521.5
-   ],
-   "facing": "south",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    717.5,
-    2,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    721.5,
-    2,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    733.5,
-    2,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    753.5,
-    6,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    762.5,
-    6,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    771.5,
-    6,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    749.5,
-    6,
-    511.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    753.5,
-    6,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    760.5,
-    6,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    762.5,
-    6,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    769.5,
-    6,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    771.5,
-    6,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    778.5,
-    6,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    705.5,
-    6,
-    513.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    721.5,
-    6,
-    513.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    698.5,
-    6,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    700.5,
-    6,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    705.5,
-    6,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    717.5,
-    6,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    721.5,
-    6,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    733.5,
-    6,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    753.5,
-    10,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    762.5,
-    10,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    771.5,
-    10,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    749.5,
-    10,
-    511.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    753.5,
-    10,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    760.5,
-    10,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    762.5,
-    10,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    769.5,
-    10,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    771.5,
-    10,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    778.5,
-    10,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    705.5,
-    10,
-    513.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    721.5,
-    10,
-    513.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    698.5,
-    10,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    700.5,
-    10,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    705.5,
-    10,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    717.5,
-    10,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    721.5,
-    10,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    733.5,
-    10,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    753.5,
-    14,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    762.5,
-    14,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    771.5,
-    14,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    749.5,
-    14,
-    511.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    753.5,
-    14,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    760.5,
-    14,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    762.5,
-    14,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    769.5,
-    14,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    771.5,
-    14,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    778.5,
-    14,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    705.5,
-    14,
-    513.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    721.5,
-    14,
-    513.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    698.5,
-    14,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    700.5,
-    14,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    705.5,
-    14,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    717.5,
-    14,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    721.5,
-    14,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    733.5,
-    14,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    753.5,
-    18,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    762.5,
-    18,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    771.5,
-    18,
-    506.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    749.5,
-    18,
-    511.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    753.5,
-    18,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    760.5,
-    18,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    762.5,
-    18,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    769.5,
-    18,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    771.5,
-    18,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    778.5,
-    18,
-    512.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    705.5,
-    18,
-    513.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    721.5,
-    18,
-    513.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    698.5,
-    18,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    700.5,
-    18,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    705.5,
-    18,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    717.5,
-    18,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    721.5,
-    18,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    733.5,
-    18,
-    521.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  }
- ],
- "garden": [],
- "north": [
-  {
-   "pos": [
-    705.5,
-    2,
-    270.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    706.5,
-    2,
-    270.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    667.5,
-    2,
-    308.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    668.5,
-    2,
-    308.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    712.5,
-    2,
-    316.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    713.5,
-    2,
-    316.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    722.5,
-    2,
-    316.5
-   ],
-   "facing": "north",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    696.5,
-    10,
-    314.5
-   ],
-   "facing": "south",
-   "type": "iron_door"
-  },
-  {
-   "pos": [
-    697.5,
-    10,
-    314.5
-   ],
-   "facing": "south",
-   "type": "iron_door"
+   "lock": ""
   }
  ]
 }

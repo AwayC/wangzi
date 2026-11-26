@@ -1,18 +1,15 @@
 extends SceneTree
-## 拼校园场景：把按 MC 布局重建的地块（assets/env/campus/*.gltf，由 tools/blender/build_mc_campus.py 生成）
-## 按 data/map/campus_plots.json 的位置摆好，再放新做的部件（extras.gltf：地面、围墙、校门、小卖部），加上门位、关键点、监控和评审机位。
+## 拼装 v4.1 结构化校园场景：读取 data/map/campus_layout.json，加载 assets/env/campus/*.gltf 各模块，
+## 为庭院与图书馆镜面水池挂载真实透明可涉水水体 ShaderMaterial，按 campus_rooms.json 自动布置室内套件家具
+##（含高三楼阅览空间沙发/书架/海报、宿舍精简纯床位、宿舍 3F 自习室、萃华楼 1F 天文社与 3F 小机房），
+## 并生成门位（doors 组）、关键点（map_points 组）、监控（cctv 组）与评审机位。
 ## 用法: $G --headless --path . --script res://tools/build_campus.gd
-## 输出: res://scenes/levels/campus.tscn（每次覆盖重建，不要手改）
-##
-## 坐标：游戏坐标 = MC 坐标 + 地块 offset - origin_mc；高度 = MC y - 4（草地顶面是 0，铺装地面是 1）。
-## 关键点 points、监控 cameras 在配置里直接写游戏坐标。
-## glb 里的几何体是 MC 绝对坐标，所以每个地块节点只需平移 offset - origin_mc。
 
-const CFG := "res://data/map/campus_plots.json"
+const CFG := "res://data/map/campus_layout.json"
 const DOORS := "res://data/map/campus_doors.json"
-const OUT := "res://scenes/levels/campus.tscn"
-const PLOT_DIR := "res://assets/env/campus/"
 const ROOMS := "res://data/map/campus_rooms.json"
+const OUT := "res://scenes/levels/campus.tscn"
+const MOD_DIR := "res://assets/env/campus/"
 const KIT := {
 	"desk": "res://assets/props/classroom/desk_student.glb", "chair": "res://assets/props/classroom/chair_student.glb",
 	"podium": "res://assets/props/classroom/podium.glb", "blackboard": "res://assets/props/classroom/blackboard.glb",
@@ -21,13 +18,57 @@ const KIT := {
 	"bookshelf": "res://assets/props/classroom/bookshelf.glb", "locker": "res://assets/props/classroom/locker_steel.glb",
 	"platform": "res://assets/env/teaching/podium_platform.glb", "pc": "res://assets/props/office/computer_desk.glb",
 	"office": "res://assets/props/office/office_desk.glb", "bunk": "res://assets/props/dorm/bunk_bed.glb",
-	"table": "res://assets/props/canteen/canteen_table.glb",
+	"table": "res://assets/props/canteen/canteen_table.glb", "sofa": "res://assets/props/classroom/reading_sofa.glb",
+	# 从 assets/library/ 复用的书架与海报/公告栏模型
+	"lib_bookrack": "res://assets/library/models/outside_object/prefab/book_rack_01_01.glb",
+	"lib_rack": "res://assets/library/models/outside_object/prefab/rack_01_01.glb",
+	"lib_board1": "res://assets/library/models/outside_object/prefab/board_01_01.glb",
+	"lib_board2": "res://assets/library/models/outside_object/prefab/board_01_02.glb",
+	"lib_poster": "res://assets/library/models/content/hot_pot/gong_gao_pai/zhai_bi_hua.glb",
 }
+
+const WATER_SHADER := """
+shader_type spatial;
+render_mode blend_mix, depth_draw_never, cull_disabled, specular_schlick_ggx;
+
+uniform vec3 shallow_color : source_color = vec3(0.05, 0.44, 0.52);
+uniform vec3 deep_color : source_color = vec3(0.02, 0.22, 0.34);
+uniform sampler2D depth_tex : hint_depth_texture, filter_linear_mipmap;
+
+float wave_h(vec2 p, float t) {
+	return sin(p.x * 2.4 + t * 1.5) * 0.018 + cos(p.y * 3.1 - t * 1.2) * 0.018
+		+ sin((p.x - p.y) * 5.2 + t * 2.1) * 0.009;
+}
+
+void fragment() {
+	vec2 wp = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xz;
+	float e = 0.07;
+	float h0 = wave_h(wp, TIME);
+	float hx = wave_h(wp + vec2(e, 0.0), TIME);
+	float hz = wave_h(wp + vec2(0.0, e), TIME);
+	vec3 w_norm = normalize(vec3(h0 - hx, e * 1.5, h0 - hz));
+	NORMAL = normalize((VIEW_MATRIX * vec4(w_norm, 0.0)).xyz);
+
+	float raw_d = texture(depth_tex, SCREEN_UV).r;
+	vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, raw_d);
+	vec4 view_p = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	view_p.xyz /= view_p.w;
+	float water_depth = clamp(-view_p.z + VERTEX.z, 0.0, 2.0);
+	float depth_f = clamp(water_depth / 0.72, 0.0, 1.0);
+
+	float fresnel = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), 4.0);
+	ALBEDO = mix(shallow_color, deep_color, depth_f);
+	METALLIC = 0.08;
+	ROUGHNESS = 0.04;
+	SPECULAR = 0.92;
+	ALPHA = clamp(0.28 + depth_f * 0.30 + fresnel * 0.32, 0.24, 0.82);
+}
+"""
 
 var _scene: Node3D
 var _font: SystemFont
-var _origin := Vector2.ZERO
 var _packed := {}
+var _water_mat: ShaderMaterial
 var _n_items := 0
 
 
@@ -38,52 +79,50 @@ func _init() -> void:
 func _run() -> void:
 	var cfg = JSON.parse_string(FileAccess.get_file_as_string(CFG))
 	var doors = JSON.parse_string(FileAccess.get_file_as_string(DOORS)) if FileAccess.file_exists(DOORS) else {}
-	_origin = Vector2(cfg.origin_mc[0], cfg.origin_mc[1])
 	_font = SystemFont.new()
 	_font.font_names = PackedStringArray(["Hiragino Sans GB", "PingFang SC", "STHeiti", "Microsoft YaHei", "Noto Sans CJK SC"])
+	var sh := Shader.new()
+	sh.code = WATER_SHADER
+	_water_mat = ShaderMaterial.new()
+	_water_mat.shader = sh
+
 	_scene = Node3D.new()
 	_scene.name = "Campus"
 	_scene.set_meta("source", CFG)
 	_environment()
 
 	var plots := _group(_scene, "Plots")
+	var water_root := _group(_scene, "Water")
 	var labels := _group(_scene, "Labels")
 	var door_root := _group(_scene, "Doors")
-	var n_plots := 0
-	for p in cfg.plots:
-		var path: String = PLOT_DIR + p.id + ".gltf"
+	var n_mods := 0
+	for mdef in cfg.modules:
+		var mod_id: String = mdef.id
+		var path: String = MOD_DIR + mod_id + ".gltf"
 		var ps := load(path) as PackedScene
 		if ps == null:
-			push_error("缺地块模型（先跑 build_mc_campus.py）: " + path)
+			push_error("缺模块模型（先跑 build_campus_v4.py）: " + path)
 			continue
 		var n: Node3D = ps.instantiate()
-		n.name = p.id
-		n.position = Vector3(p.offset[0] - _origin.x, 0, p.offset[1] - _origin.y)
-		n.set_meta("label", p.label)
+		n.name = mod_id
+		n.set_meta("label", mdef.label)
 		plots.add_child(n, true)
 		n.owner = _scene
-		n_plots += 1
-		var b: Array = p.box
-		var c := Vector3((b[0] + b[2]) / 2.0 + p.offset[0] - _origin.x, 0, (b[1] + b[3]) / 2.0 + p.offset[1] - _origin.y)
-		_label(labels, p.label, c + Vector3(0, 45, 0), 160, 0.05)
-		for d in doors.get(p.id, []):
-			var m := Marker3D.new()
-			m.position = Vector3(d.pos[0] + p.offset[0] - _origin.x, d.pos[1], d.pos[2] + p.offset[1] - _origin.y)
-			m.set_meta("type", d.type)
-			m.set_meta("facing", d.facing)
-			m.set_meta("lock", "")
-			_add(door_root, m, "Door")
-			m.add_to_group("doors", true)
+		n_mods += 1
+		_setup_water_meshes(n, water_root)
+		if mdef.label != "" and mdef.has("label_pos"):
+			var lp: Array = mdef.label_pos
+			_label(labels, mdef.label, Vector3(lp[0], lp[1], lp[2]), 130, 0.04)
+		for d in doors.get(mod_id, []):
+			var dm := Marker3D.new()
+			dm.position = Vector3(d.pos[0], d.pos[1], d.pos[2])
+			dm.set_meta("type", d.type)
+			dm.set_meta("facing", d.facing)
+			dm.set_meta("lock", d.get("lock", ""))
+			_add(door_root, dm, "Door")
+			dm.add_to_group("doors", true)
 
-	var extras := load(PLOT_DIR + "extras.gltf") as PackedScene
-	if extras:
-		var ex: Node3D = extras.instantiate()
-		ex.name = "extras"
-		plots.add_child(ex, true)
-		ex.owner = _scene
-	else:
-		push_error("缺 extras.gltf（先跑 build_mc_campus.py）")
-	_furnish(cfg)
+	_furnish()
 	_markers(cfg)
 	_cameras(cfg)
 
@@ -92,14 +131,33 @@ func _run() -> void:
 	var err := out.pack(_scene)
 	if err == OK:
 		err = ResourceSaver.save(out, OUT)
-	print("地块 %d 个，门 %d 扇，套件家具 %d 件" % [n_plots, door_root.get_child_count(), _n_items])
+	print("模块 %d 个，门 %d 扇，套件家具 %d 件" % [n_mods, door_root.get_child_count(), _n_items])
 	print("RESULT ", "OK " if err == OK else "ERR %d " % err, OUT)
 	_scene.free()
 	quit(0 if err == OK else 1)
 
 
-func _g(mc: Array) -> Vector2:
-	return Vector2(mc[0], mc[1]) - _origin
+func _setup_water_meshes(mod_node: Node3D, water_root: Node3D) -> void:
+	var found: Array[MeshInstance3D] = []
+	_collect_water(mod_node, found)
+	if found.is_empty():
+		return
+	_scene.set_editable_instance(mod_node, true)
+	for mi in found:
+		var w := MeshInstance3D.new()
+		w.mesh = mi.mesh
+		w.transform = mod_node.transform * mi.transform
+		w.material_override = _water_mat
+		w.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		_add(water_root, w, mi.name)
+		mi.visible = false
+
+
+func _collect_water(n: Node, out: Array[MeshInstance3D]) -> void:
+	if n is MeshInstance3D and n.name.ends_with("_water"):
+		out.append(n as MeshInstance3D)
+	for c in n.get_children():
+		_collect_water(c, out)
 
 
 func _add(parent: Node, n: Node, n_name: String) -> Node:
@@ -111,30 +169,6 @@ func _add(parent: Node, n: Node, n_name: String) -> Node:
 
 func _group(parent: Node, n_name: String) -> Node3D:
 	return _add(parent, Node3D.new(), n_name)
-
-
-func _mat(c: Color) -> StandardMaterial3D:
-	var m := StandardMaterial3D.new()
-	m.albedo_color = c
-	m.roughness = 0.95
-	return m
-
-
-func _box(parent: Node, n_name: String, center: Vector3, size: Vector3, mat: Material, basis := Basis()) -> void:
-	var body := StaticBody3D.new()
-	body.transform = Transform3D(basis, center)
-	_add(parent, body, n_name)
-	var mi := MeshInstance3D.new()
-	var bm := BoxMesh.new()
-	bm.size = size
-	bm.material = mat
-	mi.mesh = bm
-	_add(body, mi, "Mesh")
-	var cs := CollisionShape3D.new()
-	var sh := BoxShape3D.new()
-	sh.size = size
-	cs.shape = sh
-	_add(body, cs, "Shape")
 
 
 func _label(parent: Node, text: String, pos: Vector3, size := 48, px := 0.02) -> void:
@@ -149,33 +183,32 @@ func _label(parent: Node, text: String, pos: Vector3, size := 48, px := 0.02) ->
 	_add(parent, l, "Label")
 
 
-## 按 campus_rooms.json 给分了类型的房间摆教室套件家具（Blender 重建时已清掉这些房间里的 MC 方块家具）。
-## 房间局部坐标：z 沿长边，前墙（黑板）在 -z 端；x 沿短边。
-func _furnish(cfg: Dictionary) -> void:
+func _furnish() -> void:
 	if not FileAccess.file_exists(ROOMS):
 		return
 	var rooms = JSON.parse_string(FileAccess.get_file_as_string(ROOMS))
-	var offs := {}
-	for p in cfg.plots:
-		offs[p.id] = Vector2(p.offset[0], p.offset[1])
 	var root := _group(_scene, "Furniture")
-	for plot_id in rooms:
-		for r in rooms[plot_id]:
+	for mod_id in rooms:
+		for r in rooms[mod_id]:
 			if r.type == "":
 				continue
-			var off: Vector2 = offs.get(plot_id, Vector2.ZERO)
-			var b: Array = r.get("rect", r.box)
-			var x0: float = b[0] + off.x - _origin.x
-			var z0: float = b[1] + off.y - _origin.y
-			var x1: float = b[2] + off.x - _origin.x
-			var z1: float = b[3] + off.y - _origin.y
-			var g := _group(root, "%s_%dF_%s" % [plot_id, int(r.floor), r.type])
-			g.set_meta("room", {"plot": plot_id, "floor": r.floor, "type": r.type})
+			var b: Array = r.box
+			var x0: float = b[0]
+			var z0: float = b[1]
+			var x1: float = b[2]
+			var z1: float = b[3]
+			var g := _group(root, "%s_%dF_%s" % [mod_id, int(r.floor), r.type])
+			g.set_meta("room", {"module": mod_id, "floor": r.floor, "type": r.type})
 			var along_x := (x1 - x0) > (z1 - z0)
+			var rot_deg: float = float(r.rot) if r.has("rot") else (90.0 if along_x else 0.0)
+			var span_x := x1 - x0
+			var span_z := z1 - z0
+			var room_l := span_x if absf(fmod(absf(rot_deg), 180.0) - 90.0) < 1.0 else span_z
+			var room_w := span_z if absf(fmod(absf(rot_deg), 180.0) - 90.0) < 1.0 else span_x
 			var room := {
 				"c": Vector3((x0 + x1) / 2.0, r.y, (z0 + z1) / 2.0),
-				"rot": 90.0 if along_x else 0.0,
-				"L": maxf(x1 - x0, z1 - z0) - 0.2, "W": minf(x1 - x0, z1 - z0) - 0.2,
+				"rot": rot_deg,
+				"L": room_l - 0.2, "W": room_w - 0.2,
 				"ceil": float(r.ceil) - float(r.y),
 			}
 			match r.type:
@@ -183,6 +216,14 @@ func _furnish(cfg: Dictionary) -> void:
 					_classroom(g, room, false)
 				"lab":
 					_classroom(g, room, true)
+				"small_lab":
+					_small_lab(g, room)
+				"astronomy":
+					_astronomy(g, room)
+				"reading_lounge":
+					_reading_lounge(g, room)
+				"study_room":
+					_study_room(g, room)
 				"office":
 					_office(g, room)
 				"dorm":
@@ -212,39 +253,84 @@ func _classroom(g: Node, room: Dictionary, lab: bool) -> void:
 	_kit(g, "platform", room, Vector3(0, 0, front + 0.85), 180)
 	_kit(g, "podium", room, Vector3(0, 0.2, front + 1.0), 180)
 	_kit(g, "blackboard", room, Vector3(0, 1.05, front + 0.12), 180)
-	_kit(g, "clock", room, Vector3(0, 2.75, front + 0.1), 180)
-	_kit(g, "speaker", room, Vector3(W / 2.0 - 0.6, 2.85, front + 0.1), 180)
-	if lab:  # 机房：电脑桌一排排，每张两个座位
+	_kit(g, "clock", room, Vector3(0, 2.55, front + 0.1), 180)
+	_kit(g, "speaker", room, Vector3(W / 2.0 - 0.6, 2.65, front + 0.1), 180)
+	if lab:
 		var per := maxi(1, int((W - 1.0) / 1.45))
-		var z := front + 2.8
+		var z := front + 2.65
 		while z < back - 1.0:
 			for i in per:
 				var x := (i - (per - 1) / 2.0) * 1.45
 				_kit(g, "pc", room, Vector3(x, 0, z), 0)
 				for dx in [-0.3, 0.3]:
 					_kit(g, "chair", room, Vector3(x + dx, 0, z + 0.55), 0)
-			z += 1.6
-	else:  # 教室：两两一组，组间留走道
-		var groups := clampi(int((W - 1.2) / 2.4), 1, 4)
-		var z := front + 2.6
-		while z < back - 1.4:
+			z += 1.55
+	else:
+		var groups := clampi(int((W - 1.2) / 2.3), 1, 3)
+		var z := front + 2.55
+		while z < back - 1.15:
 			for i in groups:
-				var gx := (i - (groups - 1) / 2.0) * 2.4
+				var gx := (i - (groups - 1) / 2.0) * 2.25
 				for dx in [-0.31, 0.31]:
 					_kit(g, "desk", room, Vector3(gx + dx, 0, z), 0)
 					_kit(g, "chair", room, Vector3(gx + dx, 0, z + 0.42), 0)
 			z += 1.15
-	_kit(g, "bookshelf", room, Vector3(-W / 2.0 + 1.0, 0, back - 0.25), 0)
-	_kit(g, "locker", room, Vector3(W / 2.0 - 1.0, 0, back - 0.33), 0)
+	_kit(g, "bookshelf", room, Vector3(-W / 2.0 + 0.9, 0, back - 0.25), 0)
+	_kit(g, "locker", room, Vector3(W / 2.0 - 0.9, 0, back - 0.33), 0)
+
+
+func _reading_lounge(g: Node, room: Dictionary) -> void:
+	# 高三楼西端阅览空间（rot=0: +X 为东墙，-X 为西墙）：
+	# 东墙摆满 library 书架，西墙贴 library 公告板与海报，中间摆阅读沙发！
+	var W: float = room.W
+	for z in [-2.0, 0.0, 2.0]:
+		_kit(g, "lib_bookrack", room, Vector3(W / 2.0 - 0.28, 0.0, z), -90)
+	_kit(g, "lib_board2", room, Vector3(-W / 2.0 + 0.04, 1.45, -1.8), 90)
+	_kit(g, "lib_board1", room, Vector3(-W / 2.0 + 0.04, 1.45, 0.3), 90)
+	_kit(g, "lib_poster", room, Vector3(-W / 2.0 + 0.05, 1.50, 2.1), 90)
+	_kit(g, "sofa", room, Vector3(-W / 2.0 + 0.55, 0.0, -1.3), -90)
+	_kit(g, "sofa", room, Vector3(-W / 2.0 + 0.55, 0.0, 1.1), -90)
+
+
+func _study_room(g: Node, room: Dictionary) -> void:
+	# 宿舍 3F 转角玻璃自习室：放自习书桌、椅子与书架！
+	var W: float = room.W
+	var L: float = room.L
+	_kit(g, "lib_bookrack", room, Vector3(W / 2.0 - 0.28, 0.0, 0.0), -90)
+	for dx in [-0.45, 0.25]:
+		for dz in [-0.55, 0.55]:
+			_kit(g, "desk", room, Vector3(dx, 0.0, dz), 0 if dz < 0 else 180)
+			_kit(g, "chair", room, Vector3(dx, 0.0, dz - 0.42 if dz < 0 else dz + 0.42), 0 if dz < 0 else 180)
+	_kit(g, "bookshelf", room, Vector3(-W / 2.0 + 0.85, 0.0, L / 2.0 - 0.28), 0)
+
+
+func _small_lab(g: Node, room: Dictionary) -> void:
+	# 萃华楼 3F 圆塔中段小机房（rot=0：东西长条，靠北墙并排摆 3 台竞赛电脑桌，南侧留通道直通东门）
+	for x in [-1.5, 0.0, 1.5]:
+		_kit(g, "pc", room, Vector3(x, 0.0, -0.82), 0)
+		_kit(g, "chair", room, Vector3(x - 0.28, 0.0, -0.28), 0)
+		_kit(g, "chair", room, Vector3(x + 0.28, 0.0, -0.28), 0)
+	_kit(g, "locker", room, Vector3(2.55, 0.0, 0.95), 180)
+
+
+func _astronomy(g: Node, room: Dictionary) -> void:
+	# 萃华楼 1F 圆塔南半整间天文社：中央大桌、两台电脑桌、讲台暗格与书架
+	_kit(g, "table", room, Vector3(0.2, 0.0, 0.2), 0)
+	_kit(g, "pc", room, Vector3(-0.8, 0.0, -1.6), 0)
+	_kit(g, "chair", room, Vector3(-0.8, 0.0, -1.05), 0)
+	_kit(g, "pc", room, Vector3(0.9, 0.0, -1.6), 0)
+	_kit(g, "chair", room, Vector3(0.9, 0.0, -1.05), 0)
+	_kit(g, "podium", room, Vector3(-1.2, 0.0, 1.4), 90)
+	_kit(g, "bookshelf", room, Vector3(1.5, 0.0, 1.6), 180)
 
 
 func _office(g: Node, room: Dictionary) -> void:
 	var L: float = room.L
 	var W: float = room.W
-	var pairs := clampi(int((L - 1.5) / 1.6), 1, 4)
+	var pairs := clampi(int((L - 1.5) / 1.7), 1, 3)
 	if W >= 2.8:
 		for i in pairs:
-			var z := (i - (pairs - 1) / 2.0) * 1.6
+			var z := (i - (pairs - 1) / 2.0) * 1.7
 			_kit(g, "office", room, Vector3(-0.38, 0, z), 90)
 			_kit(g, "office", room, Vector3(0.38, 0, z), -90)
 			_kit(g, "chair", room, Vector3(-1.0, 0, z), 90)
@@ -257,43 +343,43 @@ func _office(g: Node, room: Dictionary) -> void:
 
 
 func _dorm(g: Node, room: Dictionary) -> void:
+	# 按标注：寝室去掉书桌，只放两侧上下铺床，中间留紧凑过人走道！
 	var L: float = room.L
 	var W: float = room.W
-	var n := clampi(int((L - 1.2) / 2.1), 1, 3)
+	var n := clampi(int((L - 0.3) / 2.05), 1, 2)
 	for side in [-1, 1]:
-		if W < 3.0 and side > 0:
+		if W < 2.6 and side > 0:
 			continue
 		for k in n:
-			_kit(g, "bunk", room, Vector3(side * (W / 2.0 - 0.52), 0, -L / 2.0 + 1.15 + k * 2.1), 0)
-	_kit(g, "desk", room, Vector3(-0.35, 0, L / 2.0 - 0.6), 180)
-	_kit(g, "desk", room, Vector3(0.35, 0, L / 2.0 - 0.6), 180)
-	_kit(g, "locker", room, Vector3(0, 0, -L / 2.0 + 0.33), 180)
+			var z_pos := (k - (n - 1) / 2.0) * 2.05
+			_kit(g, "bunk", room, Vector3(side * (W / 2.0 - 0.52), 0, z_pos), 0)
 
 
 func _canteen(g: Node, room: Dictionary) -> void:
 	var L: float = room.L
 	var W: float = room.W
-	var x := -W / 2.0 + 2.5
-	while x < W / 2.0 - 2.0:
-		var z := -L / 2.0 + 3.0
-		while z < L / 2.0 - 2.5:
+	var x := -W / 2.0 + 2.2
+	while x < W / 2.0 - 1.8:
+		var z := -L / 2.0 + 2.4
+		while z < L / 2.0 - 2.0:
 			_kit(g, "table", room, Vector3(x, 0, z), 0)
 			z += 2.6
-		x += 2.6
+		x += 2.7
 
 
-## 吸顶日光灯：大约每 3 m 一盏；教室再加两台吊扇。
 func _lights(g: Node, room: Dictionary, kind: String) -> void:
+	if kind == "astronomy":
+		return
 	var L: float = room.L
 	var W: float = room.W
 	var h: float = room.ceil
-	var nl := maxi(1, int(L / 3.2))
-	var nw := maxi(1, int(W / 3.2))
+	var nl := maxi(1, int(L / 3.4))
+	var nw := maxi(1, int(W / 3.4))
 	for i in nl:
 		for j in nw:
 			_kit(g, "light", room, Vector3((j - (nw - 1) / 2.0) * W / nw, h, (i - (nl - 1) / 2.0) * L / nl), 90)
 	if kind == "classroom" or kind == "lab":
-		for z in [-L / 6.0, L / 6.0]:
+		for z in [-L / 5.5, L / 5.5]:
 			_kit(g, "fan", room, Vector3(0, h, z), 0)
 
 
@@ -306,7 +392,7 @@ func _markers(cfg: Dictionary) -> void:
 		m.set_meta("label", v[3])
 		_add(g, m, "Point_" + k)
 		m.add_to_group("map_points", true)
-		_label(m, "%s %s" % [k, v[3]], Vector3(0, 3, 0), 64, 0.02)
+		_label(m, "%s %s" % [k, v[3]], Vector3(0, 2.6, 0), 56, 0.018)
 	for k in cfg.get("cameras", {}):
 		var v: Array = cfg.cameras[k]
 		var m := Marker3D.new()
@@ -314,7 +400,7 @@ func _markers(cfg: Dictionary) -> void:
 		m.set_meta("label", v[3])
 		_add(g, m, "CCTV_" + k)
 		m.add_to_group("cctv", true)
-		_label(m, "监控 %s" % k, Vector3(0, 0.8, 0), 48, 0.015)
+		_label(m, "监控 %s" % k, Vector3(0, 0.7, 0), 44, 0.014)
 
 
 func _environment() -> void:
@@ -341,23 +427,25 @@ func _environment() -> void:
 	sun.light_energy = 1.4
 	sun.light_color = Color(1.0, 0.95, 0.86)
 	sun.shadow_enabled = true
-	sun.directional_shadow_max_distance = 500.0
+	sun.directional_shadow_max_distance = 400.0
 	_add(_scene, sun, "Sun")
 
 
-## 评审机位：OverviewCamera 是默认机位，其余在 campus_plots.json 的 review_cameras 里（游戏坐标）。
 func _cameras(cfg: Dictionary) -> void:
 	var g := _group(_scene, "ReviewCameras")
 	for cdef in cfg.get("review_cameras", []):
 		var cam := Camera3D.new()
 		cam.fov = cdef[3]
-		cam.far = 3000.0
+		cam.far = 2000.0
 		_add(g, cam, cdef[0])
 		cam.look_at_from_position(Vector3(cdef[1][0], cdef[1][1], cdef[1][2]), Vector3(cdef[2][0], cdef[2][1], cdef[2][2]))
 		cam.current = cdef[0] == "OverviewCamera"
+	var tc: Dictionary = cfg.get("top_camera", {"center": [110, 78], "size": 172.0})
 	var top := Camera3D.new()
 	top.projection = Camera3D.PROJECTION_ORTHOGONAL
-	top.size = 260.0
-	top.far = 3000.0
+	top.size = float(tc.size)
+	top.far = 2000.0
 	_add(g, top, "TopCamera")
-	top.look_at_from_position(Vector3(205, 400, 116.01), Vector3(205, 0, 116), Vector3(0, 0, -1))
+	var cx: float = tc.center[0]
+	var cz: float = tc.center[1]
+	top.look_at_from_position(Vector3(cx, 350, cz + 0.01), Vector3(cx, 0, cz), Vector3(0, 0, -1))
